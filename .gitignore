@@ -4,10 +4,6 @@
 # Dataset (large, reproducibly downloadable)
 data/
 
-# Generated outputs
-outputs/
-*.pth
-
 # Jupyter executed/checkpoint files
 notebooks/.ipynb_checkpoints/
 *_executed.ipynb
