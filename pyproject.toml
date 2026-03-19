@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "lab_1_example"
+description = "Training pipeline for deep learning model"
+authors = ["Dmytro Kazakov <Dmytro.Kazakov@cs.khpi.edu.ua>"]
+version = "0.01"
+
+[tool.poetry.dependencies]
+python = "~3.12"
+torch = ">=2.0"
+torchvision = ">=0.15"
+tqdm = ">=4.64"
+matplotlib = ">=3.6"
+numpy = ">=1.22"
+pyyaml = ">=6.0"
+scipy = ">=1.10"
+pandas = ">=2.0"
+scikit-learn = ">=1.0"
+Pillow = ">=9.0"
+
+[tool.poetry.dev-dependencies]
+mypy = ">=0.991"
+ruff = ">=0.0.254"
+black = ">=23.1.0"
+isort = ">=5.12.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api" 

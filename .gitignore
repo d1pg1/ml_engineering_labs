@@ -1,0 +1,22 @@
+# Virtual environment
+.venv/
+
+# Dataset (large, reproducibly downloadable)
+data/
+
+# Generated outputs
+outputs/
+*.pth
+
+# Jupyter executed/checkpoint files
+notebooks/.ipynb_checkpoints/
+*_executed.ipynb
+.ipynb_checkpoints/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# OS
+.DS_Store
