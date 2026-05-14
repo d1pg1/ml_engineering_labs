@@ -1,0 +1,12 @@
+project_name: "mlops-cifar10"
+
+main_run:
+  num_epochs: 10
+  lr: 0.001
+  batch_size: 128
+  run_name: "Run 1 - Default Config"
+
+sweep:
+  num_epochs: 5
+  batch_size: 128
+  learning_rates: [0.01, 0.001, 0.0001]
