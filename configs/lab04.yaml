@@ -1,0 +1,12 @@
+experiment_name: "cifar10_mlflow"
+
+main_run:
+  num_epochs: 10
+  lr: 0.001
+  batch_size: 128
+  run_name: "Experiment 1 - Stage 2: Model Training"
+
+sweep:
+  num_epochs: 5
+  batch_size: 128
+  learning_rates: [0.01, 0.001, 0.0001]
