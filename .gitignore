@@ -14,5 +14,15 @@ __pycache__/
 *.py[cod]
 *.egg-info/
 
+# MLflow
+outputs/mlruns/
+
+# Weights & Biases
+wandb/
+
+# DVC internal cache
+.dvc/tmp/
+.dvc/cache/
+
 # OS
 .DS_Store

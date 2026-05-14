@@ -1,0 +1,19 @@
+# Base training configuration — matches the config dict in lab 01
+# Labs 2+ extend or override these values via per-experiment YAML files.
+
+data:
+  test_size: 0.2
+  val_size: 0.2
+  random_state: 42
+  cifar_url: "https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz"
+  data_dir: "data"
+  n_classes: 10
+
+training:
+  lr: 0.001
+  batch_size: 128
+  num_epochs: 20
+  num_workers: 2
+
+output:
+  save_path: "outputs/best_model.pth"

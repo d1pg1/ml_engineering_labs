@@ -1,10 +1,19 @@
-# ML Engineering — Lab 01: Image Classification Pipeline
+# ML Engineering Labs
 
-Supervised image classification pipeline built with PyTorch on the **CIFAR-10** dataset.
-Implements data download, ingestion, augmentation, training, and evaluation as a reproducible
-end-to-end pipeline following ML engineering best practices.
+Six progressive MLOps labs built on a shared CIFAR-10 classification pipeline.
 
-## Results
+## Labs Overview
+
+| Lab | Topic | Status |
+|-----|-------|--------|
+| [Lab 01](notebooks/ml_engineering_lab_01.ipynb) | Image Classification Pipeline (PyTorch, CIFAR-10) | ✅ Complete |
+| [Lab 02](notebooks/ml_engineering_lab_02.ipynb) | Automating Dataset Extension (config-driven batch selection) | — |
+| [Lab 03](notebooks/ml_engineering_lab_03.ipynb) | DVC Pipeline Automation (data versioning, `dvc repro`) | — |
+| [Lab 04](notebooks/ml_engineering_lab_04.ipynb) | MLflow Experiment Tracking & Artifact Management | — |
+| [Lab 05](notebooks/ml_engineering_lab_05.ipynb) | Weights & Biases Experiment Tracking | — |
+| [Lab 06](notebooks/ml_engineering_lab_06.ipynb) | Streamlit Interactive Model Analysis Dashboard | — |
+
+## Lab 01 Results
 
 | Metric | Value |
 |--------|-------|
@@ -20,68 +29,78 @@ Model: `CifarCNN` (3-block CNN with BatchNorm + Dropout), trained for 20 epochs 
 
 ```
 .
-├── notebooks/
-│   └── ml_engineering_lab_01.ipynb   # Main pipeline notebook
+├── src/                              # Shared ML source (extracted from Lab 01)
+│   ├── data/
+│   │   ├── download.py               # download_and_extract()
+│   │   └── dataset.py                # ImageDataset, loaders, splits
+│   ├── models/
+│   │   └── cnn.py                    # CifarCNN
+│   └── training/
+│       ├── trainer.py                # train_model()
+│       └── evaluate.py               # test_model()
+│
+├── configs/
+│   └── base.yaml                     # Base training config (all labs)
+│
+├── scripts/                          # DVC pipeline entry points (Lab 03+)
+│   ├── download_data.py
+│   ├── train.py
+│   └── evaluate.py
+│
+├── dashboard/                        # Streamlit app (Lab 06)
+│   ├── app.py
+│   └── utils/
+│
+├── notebooks/                        # One notebook per lab
+│   └── ml_engineering_lab_0*.ipynb
+│
 ├── outputs/
-│   └── best_model.pth                # Best checkpoint (saved during training)
-├── data/                             # Downloaded dataset (auto-created, gitignored)
-│   ├── cifar-10-batches-py/          # Raw CIFAR-10 pickle files
-│   └── images/                       # Extracted JPEGs organized by class
+│   └── best_model.pth                # Lab 01 best checkpoint
+│
 ├── docs/
-│   └── lab_report.md                 # Full lab report with results analysis
-├── .venv/                            # Local virtual environment (gitignored)
-├── pyproject.toml                    # Project metadata and dependencies (poetry)
-├── requirements.txt                  # Pinned dependencies for pip
-├── .gitignore
-└── README.md
+│   └── lab_report_0*.md              # Lab reports
+│
+├── tasks/                            # Assignment PDFs
+├── params.yaml                       # DVC parameter file (Lab 03+)
+├── pyproject.toml                    # Poetry dependencies
+└── requirements.txt
 ```
 
 ## Setup
 
 ```bash
-# Create and activate virtual environment
 python3 -m venv .venv
 source .venv/bin/activate        # Linux/macOS
-# .venv\Scripts\activate         # Windows
 
-# Install dependencies
 pip install -r requirements.txt
 ```
 
-## Running the Notebook
+## Running a Lab Notebook
 
 ```bash
-# From the repo root
 .venv/bin/jupyter notebook notebooks/ml_engineering_lab_01.ipynb
 ```
 
-Or execute non-interactively:
+## Running the Streamlit Dashboard (Lab 06)
 
 ```bash
-.venv/bin/jupyter nbconvert --to notebook --execute \
-    notebooks/ml_engineering_lab_01.ipynb \
-    --output notebooks/ml_engineering_lab_01_executed.ipynb \
-    --ExecutePreprocessor.timeout=3600
+streamlit run dashboard/app.py
 ```
 
-The pipeline will:
-1. Download CIFAR-10 (~170 MB) into `data/` — skipped if already present
-2. Extract images to `data/images/<class>/`
-3. Split into train (64%) / val (16%) / test (20%)
-4. Train `CifarCNN` for 20 epochs, saving the best checkpoint to `outputs/best_model.pth`
-5. Evaluate and log accuracy, precision, recall, F1
+## Running the DVC Pipeline (Lab 03+)
+
+```bash
+dvc repro
+```
 
 ## Dataset
 
-**CIFAR-10** — 60,000 32×32 RGB images across 10 classes:
-`airplane`, `automobile`, `bird`, `cat`, `deer`, `dog`, `frog`, `horse`, `ship`, `truck`.
-
+**CIFAR-10** — 60,000 32×32 RGB images across 10 classes.
 Downloaded automatically from `https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz`.
 
 ## Dependencies
 
-Key libraries: `torch`, `torchvision`, `scikit-learn`, `pandas`, `Pillow`, `numpy`, `scipy`.
-
+Key libraries: `torch`, `torchvision`, `scikit-learn`, `pandas`, `Pillow`, `numpy`.  
 Dev tools: `mypy`, `ruff`, `black`, `isort`.
 
-See [pyproject.toml](pyproject.toml) for full specification or [requirements.txt](requirements.txt) for pinned versions.
+See [pyproject.toml](pyproject.toml) for the full specification or [requirements.txt](requirements.txt) for pinned versions.

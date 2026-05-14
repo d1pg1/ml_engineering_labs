@@ -1,0 +1,17 @@
+# DVC parameter file — used in lab 3 pipeline stages.
+# Values here override configs/base.yaml when running dvc repro.
+
+data:
+  test_size: 0.2
+  val_size: 0.2
+  random_state: 42
+  n_classes: 10
+
+training:
+  lr: 0.001
+  batch_size: 128
+  num_epochs: 20
+  num_workers: 2
+
+output:
+  save_path: "outputs/best_model.pth"
