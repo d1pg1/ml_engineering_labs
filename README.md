@@ -59,9 +59,6 @@ Six progressive MLOps labs built on a shared CIFAR-10 classification pipeline.
 │   ├── lab05_sweep_lr*.pth
 │   └── metrics.json
 │
-├── artifacts/                        # W&B artifact cache (Lab 05)
-│   └── cifar10-cnn:v0/
-│
 ├── data/                             # CIFAR-10 raw batches + extracted images
 │   ├── cifar-10-batches-py/
 │   └── images/                       # Per-class PNG exports
