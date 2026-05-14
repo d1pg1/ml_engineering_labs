@@ -1,0 +1,22 @@
+data:
+  test_size: 0.2
+  val_size: 0.2
+  random_state: 42
+  cifar_url: "https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz"
+  data_dir: "data"
+  n_classes: 10
+
+batches:
+  total: 5
+  train: 3
+  val: 1
+  seed: 42
+
+training:
+  lr: 0.001
+  batch_size: 128
+  num_epochs: 10
+  num_workers: 2
+
+output:
+  save_path: "outputs/lab02_model.pth"
