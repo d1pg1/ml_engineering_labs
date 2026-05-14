@@ -1,0 +1,55 @@
+stages:
+  download_data:
+    cmd: .venv/bin/python scripts/download_data.py --data-dir data
+    deps:
+      - scripts/download_data.py
+      - src/data/download.py
+    outs:
+      - data/cifar-10-batches-py
+
+  train:
+    cmd: .venv/bin/python scripts/train.py
+    deps:
+      - scripts/train.py
+      - src/data/dataset.py
+      - src/models/cnn.py
+      - src/training/trainer.py
+      - data/cifar-10-batches-py
+    params:
+      - params.yaml:
+          - data.test_size
+          - data.val_size
+          - data.random_state
+          - data.n_classes
+          - training.lr
+          - training.batch_size
+          - training.num_epochs
+          - training.num_workers
+          - output.save_path
+    outs:
+      - outputs/best_model.pth
+      - data/images:
+          cache: false
+
+  evaluate:
+    cmd: .venv/bin/python scripts/evaluate.py
+    deps:
+      - scripts/evaluate.py
+      - src/data/dataset.py
+      - src/models/cnn.py
+      - src/training/evaluate.py
+      - data/cifar-10-batches-py
+      - data/images
+      - outputs/best_model.pth
+    params:
+      - params.yaml:
+          - data.test_size
+          - data.val_size
+          - data.random_state
+          - data.n_classes
+          - training.batch_size
+          - training.num_workers
+          - output.save_path
+    metrics:
+      - outputs/metrics.json:
+          cache: false

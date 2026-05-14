@@ -1,0 +1,111 @@
+schema: '2.0'
+stages:
+  download_data:
+    cmd: .venv/bin/python scripts/download_data.py --data-dir data
+    deps:
+    - path: scripts/download_data.py
+      hash: md5
+      md5: b3156bb205dfac8975a3f8f12710f7eb
+      size: 740
+    - path: src/data/download.py
+      hash: md5
+      md5: 16cd2eca431e7b350371ab897305ef16
+      size: 2457
+    outs:
+    - path: data/cifar-10-batches-py
+      hash: md5
+      md5: 2c2c368a819f1df18fd0afa1c052c6c4.dir
+      size: 186214114
+      nfiles: 8
+  train:
+    cmd: .venv/bin/python scripts/train.py
+    deps:
+    - path: data/cifar-10-batches-py
+      hash: md5
+      md5: 2c2c368a819f1df18fd0afa1c052c6c4.dir
+      size: 186214114
+      nfiles: 8
+    - path: scripts/train.py
+      hash: md5
+      md5: 4b234a687351f04a128dfb41869432dc
+      size: 1660
+    - path: src/data/dataset.py
+      hash: md5
+      md5: fd44570b2377dbf0cc99af157f385b54
+      size: 5774
+    - path: src/models/cnn.py
+      hash: md5
+      md5: d6ac6eccf99f599105f3fbe1458e2bde
+      size: 1380
+    - path: src/training/trainer.py
+      hash: md5
+      md5: 5c2df5dc3d7e2b6cf04edfdb043c117c
+      size: 2298
+    params:
+      params.yaml:
+        data.n_classes: 10
+        data.random_state: 42
+        data.test_size: 0.2
+        data.val_size: 0.2
+        output.save_path: outputs/best_model.pth
+        training.batch_size: 128
+        training.lr: 0.001
+        training.num_epochs: 20
+        training.num_workers: 2
+    outs:
+    - path: data/images
+      hash: md5
+      md5: 0b35c5bc404dc2396d5be5bb4d3e7ecb.dir
+      size: 55209813
+      nfiles: 60000
+    - path: outputs/best_model.pth
+      hash: md5
+      md5: 3512dc191e3b80902164b1ca7714b800
+      size: 17184949
+  evaluate:
+    cmd: .venv/bin/python scripts/evaluate.py
+    deps:
+    - path: data/cifar-10-batches-py
+      hash: md5
+      md5: 2c2c368a819f1df18fd0afa1c052c6c4.dir
+      size: 186214114
+      nfiles: 8
+    - path: data/images
+      hash: md5
+      md5: 0b35c5bc404dc2396d5be5bb4d3e7ecb.dir
+      size: 55209813
+      nfiles: 60000
+    - path: outputs/best_model.pth
+      hash: md5
+      md5: 3512dc191e3b80902164b1ca7714b800
+      size: 17184949
+    - path: scripts/evaluate.py
+      hash: md5
+      md5: a73fad90df34911a021a4083e3bc53ff
+      size: 1537
+    - path: src/data/dataset.py
+      hash: md5
+      md5: fd44570b2377dbf0cc99af157f385b54
+      size: 5774
+    - path: src/models/cnn.py
+      hash: md5
+      md5: d6ac6eccf99f599105f3fbe1458e2bde
+      size: 1380
+    - path: src/training/evaluate.py
+      hash: md5
+      md5: b246f69670ce03f93a9918090bc725c9
+      size: 1857
+    params:
+      params.yaml:
+        data.n_classes: 10
+        data.random_state: 42
+        data.test_size: 0.2
+        data.val_size: 0.2
+        output.save_path: outputs/best_model.pth
+        training.batch_size: 128
+        training.num_workers: 2
+    outs:
+    - path: outputs/metrics.json
+      hash: md5
+      md5: 33ee5f698552d97de9d4967af45b71f5
+      size: 160

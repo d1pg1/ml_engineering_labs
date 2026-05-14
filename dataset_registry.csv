@@ -1,0 +1,2 @@
+version,name,source_url,num_classes,num_train,num_val,num_test,random_state,date_registered,notes
+1.0,CIFAR-10,https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz,10,38400,9600,12000,42,2026-05-14,Base dataset for Lab 03 pipeline
